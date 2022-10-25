@@ -4,12 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <!-- Font-icon css-->
-    <link rel="stylesheet" type="text/css" href="../../maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    @vite(['resources/backend/css/main.css', 'resources/backend/css/font-awesome/4.7.0/css/font-awesome.min.css'])
-    <title>Login - Vali Admin</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/main.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/font-awesome/4.7.0/css/font-awesome.min.css') }}"/>
+    <title>Login - {{ config('app.name') }}</title>
   </head>
   <body>
     <section class="material-half-bg">
@@ -20,28 +17,29 @@
         <h1>Vali</h1>
       </div>
       <div class="login-box">
-        <form class="login-form" action="https://pratikborsadiya.in/vali-admin/index.html">
-          <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
+        <form class="login-form" method="POST" action={{ route('admin.login.do') }}>
+            @csrf
+          <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>LOGAR</h3>
           <div class="form-group">
             <label class="control-label">USERNAME</label>
-            <input class="form-control" type="text" placeholder="Email" autofocus>
+            <input class="form-control" type="text" name="email" placeholder="Email" autofocus>
           </div>
           <div class="form-group">
             <label class="control-label">PASSWORD</label>
-            <input class="form-control" type="password" placeholder="Password">
+            <input class="form-control" type="password" name="password" placeholder="Password">
           </div>
           <div class="form-group">
             <div class="utility">
               <div class="animated-checkbox">
                 <label>
-                  <input type="checkbox"><span class="label-text">Stay Signed in</span>
+                  <input type="checkbox" name='remember'><span class="label-text">Permenecer logado</span>
                 </label>
               </div>
-              <p class="semibold-text mb-2"><a href="#" data-toggle="flip">Forgot Password ?</a></p>
+              <p class="semibold-text mb-2"><a href="#" data-toggle="flip">Esqueceu a senha?</a></p>
             </div>
           </div>
           <div class="form-group btn-container">
-            <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
+            <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>Entrar</button>
           </div>
         </form>
         <form class="forget-form" action="https://pratikborsadiya.in/vali-admin/index.html">
@@ -59,12 +57,11 @@
         </form>
       </div>
     </section>
-    @vite([
-        'resources/backend/js/jquery-3.2.1.min.js',
-        'resources/backend/js/popper.min.js',
-        'resources/backend/js/bootstrap.min.js',
-        'resources/backend/js/main.js',
-        'resources/backend/js/plugins/pace.min.js',
-    ])
+    <!-- Essential javascripts for application to work-->
+    <script src="{{ asset('backend/js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('backend/js/popper.min.js') }}"></script>
+    <script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('backend/js/main.js') }}"></script>
+    <script src="{{ asset('backend/js/plugins/pace.min.js') }}"></script>
   </body>
 </html>
