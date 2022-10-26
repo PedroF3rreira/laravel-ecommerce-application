@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Admin\LoginController;
+use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'admin'], function(){
     Route::get('/login', [LoginController::class, 'showFormLogin'])->name('admin.login');
@@ -9,8 +10,10 @@ Route::group(['prefix' => 'admin'], function(){
 
 Route::group([ 'middleware' => [ 'auth:admin' ]], function  ()  {
 
-    Route::get( '/admin' , function  ()  {
-         return view( 'admin.dashboard.index' );
+    Route::get( '/admin' , function(Request $request)  {
+         return view( 'admin.dashboard.index', [
+            'admin' => $request->user(),
+         ]);
     } )->name( 'admin.dashboard' );
 
 });

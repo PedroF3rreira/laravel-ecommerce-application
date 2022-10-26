@@ -2,7 +2,7 @@
 <aside class="app-sidebar">
     <div class="app-sidebar__user">
         <div>
-            <p class="app-sidebar__user-name">John Doe</p>
+            <p class="app-sidebar__user-name">{{ $admin->name }}</p>
             <p class="app-sidebar__user-designation">Frontend Developer</p>
         </div>
     </div>
