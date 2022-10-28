@@ -3,7 +3,7 @@
     <div class="app-sidebar__user">
         <div>
             <p class="app-sidebar__user-name">{{ $admin->name }}</p>
-            <p class="app-sidebar__user-designation">Frontend Developer</p>
+            <p class="app-sidebar__user-designation">Administrador do sistema</p>
         </div>
     </div>
     <ul class="app-menu">
@@ -31,7 +31,7 @@
         </li>
         <li>
             <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-cogs"></i>
-                <span class="app-menu__label">Settings</span>
+                <span class="app-menu__label">Configuraçoes</span>
             </a>
         </li>
     </ul>
