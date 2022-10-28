@@ -1,39 +1,39 @@
-<?php 
+<?php
 namespace App\Traits;
 
 /**
  * Trais messages
- * @package 
+ * @package
  */
 Trait FlashMessages {
 
 	/**
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $infoMessages = [];
 
 	/**
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $errorMessages = [];
 
 	/**
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $successMessages = [];
 
 	/**
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $warningMessages = [];
 
 
 	/**
-	 * 
+	 *
 	 * @param array $message
 	 * @param string $type
 	 */
@@ -82,10 +82,10 @@ Trait FlashMessages {
 
 
 	/**
-	 * 
+	 *
 	 * @return void
 	 */
-	protected function showFlashmessage()
+	protected function showFlashMessages()
 	{
 		session()->flash('info', $infomessages);
 		session()->flash('error', $errorMessages);
