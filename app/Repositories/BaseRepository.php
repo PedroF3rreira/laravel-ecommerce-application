@@ -15,6 +15,7 @@ class BaseRepository implements BaseContract{
     {
         $this->model = $model;
     }
+
     /**
      * create model instance
      * @param array $attributes
@@ -31,7 +32,7 @@ class BaseRepository implements BaseContract{
      * @param int $id
      * @return mixed
      */
-    public function update(array $attributes, int $id)
+    public function update(array $attributes, int $id) : bool
     {
        return $this->model->find($id)->update($attributes);
     }
@@ -62,6 +63,7 @@ class BaseRepository implements BaseContract{
      * busca por id ou retorna uma exceção
      * @param int $id
      * @return mixed
+     * @throws ModelNotFoundException
      */
     public function findOneOrFail(int $id)
     {
@@ -75,7 +77,7 @@ class BaseRepository implements BaseContract{
      */
     public function findBy(array $data)
     {
-
+        return $this->model->where($data)->all();
     }
 
     /**
@@ -85,17 +87,18 @@ class BaseRepository implements BaseContract{
      */
     public function findOneBy(array $data)
     {
-
+        return $this->model->find($data)->first();
     }
 
     /**
      * localiza por uma coluna ou lança uma exceçãos
      * @param array $data
      * @return mixed
+     * @throws ModelNotFoundException
      */
     public function findOneByOrFail(array $data)
     {
-
+        return $this->model->where($data)->firstOrFail();
     }
 
     /**
@@ -103,8 +106,8 @@ class BaseRepository implements BaseContract{
      * @param int $id
      * @return mixed
      */
-    public function delete(int $id)
+    public function delete(int $id) : bool
     {
-
+        return $this->model->find($id)->delete();
     }
 }
