@@ -55,6 +55,13 @@ class BaseController extends Controller
         ]);
     }
 
+    /**
+     * @param $route
+     * @param string $message
+     * @param string $type
+     * @param boolean $error
+     * @param boolean $withOldInputWhenError
+     */
     protected function responseRedirect($route, $message, $type = 'info', $error = false, $withOldInputWhenError = false)
     {
         $this->setFlashMessage($message, $type);
