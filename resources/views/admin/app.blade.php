@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <title>@yield('title') - {{ config('app.name') }}</title>
     <meta charset="utf-8" />
