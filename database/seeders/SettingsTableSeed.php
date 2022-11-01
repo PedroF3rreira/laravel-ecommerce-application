@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Setting;
 
 class SettingsTableSeed extends Seeder
 {
@@ -114,7 +115,7 @@ class SettingsTableSeed extends Seeder
                     $this->command->info("insert failed at record $index");
                     return;
                }
-               $this->command->info('Inserted '.count($this->settings).' records');    
-           }   
+               $this->command->info('Inserted '.count($this->settings).' records');
+           }
     }
 }
