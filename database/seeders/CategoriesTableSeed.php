@@ -22,6 +22,6 @@ class CategoriesTableSeed extends Seeder
             'menu' => 0,
         ]);
 
-        factory('App\Models\Category', 10)->create();
+        \App\Models\Category::factory(10)->create();
     }
 }

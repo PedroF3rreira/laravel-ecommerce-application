@@ -20,7 +20,7 @@ class CategoryFactory extends Factory
             'name' => fake()->name(),
             'description' => fake()->realText(100),
             'parent_id' => 1,
-            'memu' => 1
+            'menu' => 1
         ];
     }
 }
