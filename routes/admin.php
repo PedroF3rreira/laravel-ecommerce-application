@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'admin'], function(){
@@ -23,6 +24,10 @@ Route::group(['prefix' => 'admin'], function(){
         
         Route::post('/settings', [SettingController::class, 'update'])
             ->name('admin.settings.update');
+
+        Route::resource('categorias', CategoryController::class)
+            ->names('admin.categories')
+        ->parameters(['categorias' => 'category']);
 
     });
 
