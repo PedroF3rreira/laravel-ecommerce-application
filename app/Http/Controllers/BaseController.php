@@ -69,4 +69,19 @@ class BaseController extends Controller
         return redirect()->back();
 
     }
+
+        /**
+     * @param $message
+     * @param string $type
+     * @param bool $error
+     * @param bool $withOldInputWhenError
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function responseRedirectBack($message, $type = 'info', $error = false, $withOldInputWhenError = false)
+    {
+        $this->setFlashMessage($message, $type);
+        $this->showFlashMessages();
+
+        return redirect()->back();
+    }
 }

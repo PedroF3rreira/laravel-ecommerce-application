@@ -74,7 +74,7 @@ Trait FlashMessages {
 	{
 		return[
 			'error' => $this->errorMessages,
-			'info' => $this->infomessages,
+			'info' => $this->infoMessages,
 			'success' => $this->successMessages,
 			'warning' => $this->warningMessages
 		];
@@ -83,13 +83,13 @@ Trait FlashMessages {
 
 	/**
 	 *
-	 * @return void
+	 * @return mixed
 	 */
 	protected function showFlashMessages()
 	{
-		session()->flash('info', $infomessages);
-		session()->flash('error', $errorMessages);
-		session()->flash('success', $successMessages);
-		session()->flash('warningMessages', $warningMessages);
+		session()->flash('info', $this->infoMessages);
+		session()->flash('error', $this->errorMessages);
+		session()->flash('success', $this->successMessages);
+		session()->flash('warningMessages', $this->warningMessages);
 	}
 }

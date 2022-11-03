@@ -14,11 +14,11 @@ class SettingsTableSeed extends Seeder
     protected $settings = [
         [
             'key'                       =>  'site_name',
-            'value'                     =>  'E-Commerce Application',
+            'value'                     =>  'Melissa BabyShop',
         ],
         [
             'key'                       =>  'site_title',
-            'value'                     =>  'E-Commerce',
+            'value'                     =>  'Melissa BabyShop',
         ],
         [
             'key'                       =>  'default_email_address',
