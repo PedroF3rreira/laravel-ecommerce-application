@@ -21,7 +21,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract{
 	}
 
 	/**
-	 * 
+	 *
 	 * @param  array  $columns determina colunas a serem retornadas
 	 * @param  string $order   ordenação da lista por coluna
 	 * @param  string $sort    orden da lista
@@ -33,13 +33,13 @@ class CategoryRepository extends BaseRepository implements CategoryContract{
 	}
 
 	/**
-	 * 
-	 * @param  int    $id 
+	 *
+	 * @param  int    $id
 	 * @return mixed
 	 * @throws ModelNotFoundException
 	 */
 	public function findCategoryById(int $id)
-	{	
+	{
 		try{
 			return $this->findOneOrfail($id);
 		}
@@ -48,10 +48,16 @@ class CategoryRepository extends BaseRepository implements CategoryContract{
 		}
 	}
 
+    /**
+     * @param array $params
+     * @return mixed|Category
+     * @throws InvalidArgumentException
+     */
 	public function createCategory(array $params)
 	{
 		try{
 
+            //criando uma coleção dos dados passados como array
 			$collection = collect($params);
 
 			$image = null;
@@ -60,7 +66,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract{
 				$image = $this->uploadOne($params['image'], 'categories');
 			}
 
-			$feature = $collection->has('featured') ?? 0;
+			$featured = $collection->has('featured') ?? 0;
 			$menu = $collection->has('menu') ?? 0;
 
 			$merger = $collection->merge(compact('menu', 'image', 'featured'));
@@ -75,4 +81,50 @@ class CategoryRepository extends BaseRepository implements CategoryContract{
 			throw new InvalidArgumentException($exception->getMessage());
 		}
 	}
+
+    /**
+     * @param array $params
+     * @return mixed
+     *
+     */
+    public function updateCategory(array $params)
+    {
+        $category = $this->findCategoryById($params['id']);
+
+        $collection = collect($params)->except('_token');
+
+        if($collection->has('image') && ($params['image'] instanceof UploadedFile)){
+            if($category->image != null){
+                $this->deleteOne($category->image);
+            }
+
+            $image = $this->uploadOne($params['image'], 'categories');
+        }
+
+        $featured = $collection->has('featured') ?? 0;
+        $menu = $collection->has('menu') ?? 0;
+
+        $merger = $collection->merge(compact('image', 'featured', 'menu'));
+
+        $category->update($merger->all());
+
+        return $category;
+    }
+
+    /**
+     * @param int $id
+     * @return bool|mixed
+     */
+    public function deleteCategory(int $id)
+    {
+        $category = $this->findCategoryById($id);
+
+        if($category->iamge != null){
+            $this->deleteOne($category->image);
+        }
+
+        $category->delete();
+
+        return $category;
+    }
 }

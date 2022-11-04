@@ -10,19 +10,19 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
     Route::group([ 'middleware' => [ 'auth:admin' ]], function  ()  {
-        
+
         Route::get( '/' , function(Request $request)  {
-           
+
            return view( 'admin.dashboard.index', [
             'admin' => $request->user(),
 
         ]);
        })->name( 'admin.dashboard' );
 
-        Route::get('/settings', [SettingController::class, 'index'])
+        Route::get('/configuraçoes', [SettingController::class, 'index'])
             ->name('admin.settings');
-        
-        Route::post('/settings', [SettingController::class, 'update'])
+
+        Route::post('/configuraçoes', [SettingController::class, 'update'])
             ->name('admin.settings.update');
 
         Route::resource('categorias', CategoryController::class)

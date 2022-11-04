@@ -11,8 +11,8 @@
             <div class="widget-small primary coloured-icon">
                 <i class="icon fa fa-users fa-3x"></i>
                 <div class="info">
-                    <h4>Users</h4>
-                    <p><b>1200</b></p>
+                    <h4>Orders</h4>
+                    <p><b>1100</b></p>
                 </div>
             </div>
         </div>
