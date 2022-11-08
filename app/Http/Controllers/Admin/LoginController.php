@@ -34,7 +34,7 @@ class LoginController extends Controller
             return redirect()->intended(route('admin.dashboard'));
         }
 
-        return back()->withInput($request->only(['email', 'remember']));
+        return back()->withErrors(['senha ou email são invaidos!'])->withInput($request->only(['email', 'remember']));
     }
 
     public function logout(Request $request)

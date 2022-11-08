@@ -23,8 +23,10 @@ class CategoryController extends BaseController
     public function index()
     {
         $categories = $this->categoryRepository->listCategories();
-
+        
         $this->setPageTitle('Categorias', 'Categorias');
+
+        return view('admin.categories.index', compact('categories'));
 
     }
 

@@ -16,6 +16,12 @@
       <div class="logo">
         <h1>Vali</h1>
       </div>
+      @if(count($errors->all()))
+              @foreach($errors->all() as $error)
+                <span class="text-white">{{ $error }}</span>
+              @endforeach
+          
+            @endif
       <div class="login-box">
         <form class="login-form" method="POST" action={{ route('admin.login.do') }}>
             @csrf
