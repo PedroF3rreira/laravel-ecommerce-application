@@ -99,8 +99,8 @@ class CategoryRepository extends BaseRepository implements CategoryContract{
             if($category->image != null){
                 $this->deleteOne($category->image);
             }
-            
-            $image = $this->uploadOne($params['image'], 'categories');            
+
+            $image = $this->uploadOne($params['image'], 'categories');
         }
 
         $featured = $collection->has('featured') ?? 0;

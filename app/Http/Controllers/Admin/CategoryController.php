@@ -23,7 +23,7 @@ class CategoryController extends BaseController
     public function index()
     {
         $categories = $this->categoryRepository->listCategories();
-        
+
         $this->setPageTitle('Categorias', 'Categorias');
 
         return view('admin.categories.index', compact('categories'));
@@ -63,9 +63,9 @@ class CategoryController extends BaseController
 
         if(!$category){
             return $this->responseRedirectBack(
-                'Um erro ocorreu no cadastro da categoria', 
-                'error', 
-                true, 
+                'Um erro ocorreu no cadastro da categoria',
+                'error',
+                true,
                 true
             );
         }
@@ -133,6 +133,12 @@ class CategoryController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $category = $this->categoryRepository->deleteCategory($id);
+
+        if(!$category){
+            return $this->responseRedirectBack('Ocorreu um erro em deletar a categoria', 'error', true, true);
+        }
+
+        return $this->responseRedirect('admin.categories.index', 'Categoria deletada com exito!', 'success', false, false);
     }
 }
