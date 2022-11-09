@@ -66,6 +66,9 @@ class BaseController extends Controller
     {
         $this->setFlashMessage($message, $type);
         $this->showFlashMessages();
+        if($route){
+            return redirect()->route($route);
+        }
         return redirect()->back();
 
     }
@@ -82,6 +85,6 @@ class BaseController extends Controller
         $this->setFlashMessage($message, $type);
         $this->showFlashMessages();
 
-        return redirect()->back();
+        return  back();
     }
 }

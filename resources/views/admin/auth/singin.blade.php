@@ -14,21 +14,17 @@
     </section>
     <section class="login-content">
       <div class="logo">
-        <h1>Vali</h1>
+        <h1>{{ config('settings.site_name') }}</h1>
       </div>
-      @if(count($errors->all()))
-              @foreach($errors->all() as $error)
-                <span class="text-white">{{ $error }}</span>
-              @endforeach
-          
-            @endif
+      
       <div class="login-box">
         <form class="login-form" method="POST" action={{ route('admin.login.do') }}>
             @csrf
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>LOGAR</h3>
           <div class="form-group">
             <label class="control-label">USERNAME</label>
-            <input class="form-control" type="text" name="email" placeholder="Email" autofocus>
+            <input class="form-control @error('name') is-invalid @enderror" type="text" name="email" placeholder="Email" autofocus value={{ old('email') }}>
+            @error('email'){{ $message }}@enderror
           </div>
           <div class="form-group">
             <label class="control-label">PASSWORD</label>

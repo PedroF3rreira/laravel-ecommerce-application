@@ -37,7 +37,10 @@ class CategoryController extends BaseController
      */
     public function create()
     {
-        //
+        $categories = $this->categoryRepository->listCategories('id', 'asc');
+        $this->setPageTitle('Categorias', 'Cadastro de categorias');
+
+        return view('admin.categories.create', compact('categories'));
     }
 
     /**
@@ -48,7 +51,26 @@ class CategoryController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:191',
+            'parent_id' => 'required|not_in:0',
+            'image' => 'mimes:jpg,jpeg,png|max:1000'
+        ]);
+
+        $params = $request->except('_token');
+
+        $category = $this->categoryRepository->createCategory($params);
+
+        if(!$category){
+            return $this->responseRedirectBack(
+                'Um erro ocorreu no cadastro da categoria', 
+                'error', 
+                true, 
+                true
+            );
+        }
+
+        return $this->responseRedirect('admin.categories.index', 'Categoria adicionada com exito!', 'success', false, false);
     }
 
     /**
@@ -59,7 +81,7 @@ class CategoryController extends BaseController
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -70,7 +92,11 @@ class CategoryController extends BaseController
      */
     public function edit($id)
     {
-        //
+        $targetCategory = $this->categoryRepository->findCategoryById($id);
+        $categories = $this->categoryRepository->listCategories('id', 'desc');
+        $this->setPageTitle('Editar Categoria', $targetCategory->name);
+
+        return view('admin.categories.edit', compact('categories', 'targetCategory'));
     }
 
     /**
@@ -82,7 +108,21 @@ class CategoryController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:191',
+            'parent_id' => 'required|not_in:0',
+            'image' => 'mimes:jpg,jpeg,png|max:1000'
+        ]);
+
+        $params = $request->except(['_token', 'method']);
+
+        $category = $this->categoryRepository->updateCategory($params);
+
+        if(!$category){
+            return $this->responseRedirectBack('Ocorreu um erro ao atualizar categorias', 'error', true, true);
+        }
+
+        return $this->responseRedirect('admin.categories.index','Categoria '.$category->name .' atualizada com exito!', 'success', false, false);
     }
 
     /**

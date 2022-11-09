@@ -27,7 +27,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract{
 	 * @param  string $sort    orden da lista
 	 * @return mixed
 	 */
-	public function listCategories(array $columns = ['*'], string $order = 'id', string $sort = 'desc')
+	public function listCategories(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
 	{
 		return $this->all($columns, $order, $sort);
 	}
@@ -71,7 +71,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract{
 
 			$merger = $collection->merge(compact('menu', 'image', 'featured'));
 
-			$category = new Category($merge->all());
+			$category = new Category($merger->all());
 
 			$category->save();
 
@@ -93,12 +93,14 @@ class CategoryRepository extends BaseRepository implements CategoryContract{
 
         $collection = collect($params)->except('_token');
 
+        $image = null;
+
         if($collection->has('image') && ($params['image'] instanceof UploadedFile)){
             if($category->image != null){
                 $this->deleteOne($category->image);
             }
-
-            $image = $this->uploadOne($params['image'], 'categories');
+            
+            $image = $this->uploadOne($params['image'], 'categories');            
         }
 
         $featured = $collection->has('featured') ?? 0;
