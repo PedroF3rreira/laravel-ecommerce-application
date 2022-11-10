@@ -2,6 +2,7 @@
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\AttributeController;
 use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'admin'], function(){
@@ -28,6 +29,10 @@ Route::group(['prefix' => 'admin'], function(){
         Route::resource('categorias', CategoryController::class)
             ->names('admin.categories')
         ->parameters(['categorias' => 'category']);
+
+        Route::resource('atributos', AttributeController::class)
+            ->names('admin.attributes')
+        ->parameters(['atributos' => 'attribute']);
 
     });
 
