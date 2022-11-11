@@ -27,10 +27,12 @@ Route::group(['prefix' => 'admin'], function(){
             ->name('admin.settings.update');
 
         Route::resource('categorias', CategoryController::class)
+            ->except(['show'])
             ->names('admin.categories')
         ->parameters(['categorias' => 'category']);
 
         Route::resource('atributos', AttributeController::class)
+            ->except(['show'])
             ->names('admin.attributes')
         ->parameters(['atributos' => 'attribute']);
 

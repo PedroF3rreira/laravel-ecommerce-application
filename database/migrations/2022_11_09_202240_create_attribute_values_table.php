@@ -30,7 +30,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('attributes', function (Blueprint $table) {
+        Schema::table('attribute_values', function (Blueprint $table) {
             $table->dropForeignIdFor(Attribute::class);
         });
         Schema::dropIfExists('attribute_values');
