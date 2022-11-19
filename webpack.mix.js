@@ -10,10 +10,14 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
- mix.copyDirectory('resources/backend', 'public/backend');
- mix.copyDirectory('resources/frontend', 'public/frontend');
-
- mix.browserSync('127.0.0.1:8000');
+mix.copyDirectory('resources/backend', 'public/backend');
+mix.copyDirectory('resources/frontend', 'public/frontend');
+mix.js('resources/js/app.js', 'public/backend/js')
+    .vue()  
+    .postCss('resources/css/app.css', 'public/css', [
+        //
+        ]);
+mix.browserSync('127.0.0.1:8000');
 // mix.js('resources/js/app.js', 'public/js')
 //     .postCss('resources/css/app.css', 'public/css', [
 //         //

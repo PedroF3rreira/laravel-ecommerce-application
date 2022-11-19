@@ -3,6 +3,7 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Admin\AttributeValueController;
 use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'admin'], function(){
@@ -35,6 +36,13 @@ Route::group(['prefix' => 'admin'], function(){
             ->except(['show'])
             ->names('admin.attributes')
         ->parameters(['atributos' => 'attribute']);
+
+        Route::group(['prefix' => 'atributos'], function(){
+            Route::post('/get-values', [AttributeValueController::class, 'getValues']);
+            Route::post('/add-values', [AttributeValueController::class, 'addValues']);
+            Route::post('/update-values', [AttributeValueController::class, 'updateValues']);
+            Route::post('/delete-values', [AttributeValueController::class, 'deleteValues']);
+        });
 
     });
 
