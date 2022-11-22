@@ -30,8 +30,12 @@ if (token) {
 
 const app = createApp({});
 
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 import AttributeValues from './components/AttributeValues.vue';
 app.component('attribute-values', AttributeValues);
+app.use(VueSweetalert2);
 
 /**
  * The following block of code may be used to automatically register your
