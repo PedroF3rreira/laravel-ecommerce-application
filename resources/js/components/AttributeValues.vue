@@ -33,7 +33,10 @@
                 <div class="tile-footer">
                     <div class="row d-print-none mt-2">
                         <div class="col-12 text-right">
-                            <button class="btn btn-success"  type="submit" @click.stop="saveValue()" v-if="addValue">
+                            <div class="spinner-grow text-success " v-if="buttonLoad">
+
+                            </div>
+                            <button class="btn btn-success" type="submit" @click.stop="saveValue()" v-if="addValue">
                                 <i class="fa fa-fw fa-lg fa-check-circle"></i>Save
                             </button>
                             <button class="btn btn-success" type="submit" @click.stop="updateValue()" v-if="!addValue">
@@ -48,7 +51,13 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-sm">
+                <div class="d-flex align-items-center col">
+                    <div class="spinner-grow text-success " v-if="load">
+                    
+                    </div>    
+                </div>
+                
+                <table class="table table-sm" v-if="!load">
                     <thead>
                     <tr class="text-center">
                         <th>#</th>
@@ -66,7 +75,7 @@
                             <button class="btn btn-sm btn-primary" @click.stop="editAttributeValue(value)">
                                 <i class="fa fa-edit"></i>
                             </button>
-                            <button class="btn btn-sm btn-danger">
+                            <button class="btn btn-sm btn-danger" @click.stop="deleteValue(value)">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </td>
@@ -91,6 +100,8 @@
 				currentId: '',
 				addValue: true,
 				key: 0,
+                load: false,
+                buttonLoad: false,
 			}
 		},
 		created: function() {
@@ -102,13 +113,16 @@
                 let attributeId = this.attributeid;
                 
                 let _this = this;
-
+                
+                this.load = true;
+                
                 axios.post('/admin/atributos/get-values', {
                     id: attributeId
                 
                 }).then (function(response){
                     
                     _this.values = response.data;
+                    _this.load = false;
                 
                 }).catch(function (error) {
                     console.log(error);
@@ -121,6 +135,8 @@
 
                     let attributeId = this.attributeid;
                     let _this = this;
+                    
+                    this.buttonLoad = true;
 
                     axios.post('/admin/atributos/add-values', {
                         id: attributeId,
@@ -131,6 +147,7 @@
                         
                         _this.values.push(response.data);
                         _this.resetValue();
+                        _this.buttonLoad = false;
                         _this.$swal("exito!","Valor de atibuto adicionada com sucesso","success");
 
                     }).catch(function(error){
@@ -172,12 +189,32 @@
                         _this.$swal("Success!","valor de atributo atualizado", 'success');
 
                     }).catch(function (error) {
+                        _this.$swal("Erro", "Ocorreu um erro entre em contato com o suporte!", 'error')
                         console.log(error);
                     });
                 }
             },
-            deleteValue(){
+            deleteValue(value){
+                
+                this.currentId = value.id;
 
+                this.key = this.values.indexOf(value);
+                
+                let _this = this;
+
+                axios.post('/admin/atributos/delete-values', {
+                    id: _this.currentId
+                }).then (function(response){
+                    if (response.data.status === 'success') {
+                        _this.values.splice(_this.key, 1);
+                        _this.resetValue();
+                        _this.$swal("Success! opção de valor de atrubito foi deletado!", "success");
+                    } else {
+                        _this.$swal("Não foi possivel deletar!");
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
             },
             resetValue(){
                 this.value = '',

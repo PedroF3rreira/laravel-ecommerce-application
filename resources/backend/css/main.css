@@ -14249,3 +14249,40 @@ be a descendant of the grid when it is being dragged.
 .user .user-settings label {
   color: #666;
 }
+
+
+
+@keyframes spinner-grow {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.spinner-grow {
+  position: relative;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  overflow: hidden;
+  text-indent: -999em;
+  vertical-align: text-bottom;
+  background-color: currentColor;
+  border-radius: 50%;
+  animation-name: spinner-grow;
+  animation-duration: .75s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.spinner-grow-sm {
+  width: 1rem;
+  height: 1rem;
+}

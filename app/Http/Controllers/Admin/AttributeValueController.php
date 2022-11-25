@@ -63,9 +63,13 @@ class AttributeValueController extends BaseController
         return response()->json($attributeValue);
     }
 
-    public function deleteValues($id)
-    {
-        
+    public function deleteValues(Request $request)
+    {   
+        $value = AttributeValue::findOrFail($request->id);
+
+        $value->delete();
+
+        return response()->json(['status' => 'success', 'message' => 'valor deletado com suscesso!']);
         
     }
 }

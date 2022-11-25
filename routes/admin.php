@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\AttributeValueController;
+use App\Http\Controllers\Admin\BrandController;
 use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'admin'], function(){
@@ -43,6 +44,11 @@ Route::group(['prefix' => 'admin'], function(){
             Route::post('/update-values', [AttributeValueController::class, 'updateValues']);
             Route::post('/delete-values', [AttributeValueController::class, 'deleteValues']);
         });
+
+        Route::resource('marcas', BrandController::class)
+            ->except('show')
+            ->names('admin.brands')
+        ->parameters(['marcas' =>'brands']);
 
     });
 
